@@ -692,8 +692,6 @@ flowchart TD
 ```
 sistem-penomoran-sk/
 ├── public/
-│   ├── favicon.svg              # Favicon
-│   ├── icons.svg                # SVG sprite icons
 │   └── logo-dishub.png          # Logo Dinas Perhubungan
 │
 ├── server/                      # === BACKEND ===

@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" modified="2025-07-26" type="device">
+  <diagram id="class" name="Class Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="700">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="Class Diagram - Sistem Penomoran SK" style="text;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;align=center;" vertex="1" parent="1"><mxGeometry x="250" y="10" width="400" height="30" as="geometry"/></mxCell>
+        <!-- User Class -->
+        <mxCell id="user" value="&lt;b&gt;User&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="60" y="80" width="220" height="250" as="geometry"/></mxCell>
+        <mxCell id="u1" value="- id: int" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="26" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u2" value="- username: string" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="46" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u3" value="- password: string (bcrypt)" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="66" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u4" value="- nama_lengkap: string" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="86" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u5" value="- role: string" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="106" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u6" value="- created_at: datetime" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="126" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u7" value="" style="line;strokeColor=#6c8ebf;" vertex="1" parent="user"><mxGeometry y="146" width="220" height="8" as="geometry"/></mxCell>
+        <mxCell id="u8" value="+ login(username, password)" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="154" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u9" value="+ register(data)" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="174" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u10" value="+ update(data)" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="194" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="u11" value="+ delete()" style="text;align=left;fontSize=11;" vertex="1" parent="user"><mxGeometry y="214" width="220" height="20" as="geometry"/></mxCell>
+        <!-- Pengajuan Class -->
+        <mxCell id="peng" value="&lt;b&gt;Pengajuan&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="380" y="80" width="240" height="290" as="geometry"/></mxCell>
+        <mxCell id="p1" value="- id: int" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="26" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p2" value="- nama: string" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="46" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p3" value="- alamat: string" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="66" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p4" value="- tanggal: string" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="86" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p5" value="- status: string" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="106" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p6" value="- submitted_by: int (FK)" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="126" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p7" value="- created_at: datetime" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="146" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p8" value="" style="line;strokeColor=#82b366;" vertex="1" parent="peng"><mxGeometry y="166" width="240" height="8" as="geometry"/></mxCell>
+        <mxCell id="p9" value="+ create(data)" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="174" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p10" value="+ update(data)" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="194" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p11" value="+ delete()" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="214" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p12" value="+ terima(): Riwayat" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="234" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="p13" value="+ tolak()" style="text;align=left;fontSize=11;" vertex="1" parent="peng"><mxGeometry y="254" width="240" height="20" as="geometry"/></mxCell>
+        <!-- Riwayat Class -->
+        <mxCell id="riw" value="&lt;b&gt;Riwayat&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="720" y="80" width="240" height="270" as="geometry"/></mxCell>
+        <mxCell id="r1" value="- id: int" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="26" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r2" value="- pengajuan_id: int (FK)" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="46" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r3" value="- nama: string" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="66" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r4" value="- alamat: string" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="86" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r5" value="- tanggal: string" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="106" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r6" value="- nomor_sk: string (auto)" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="126" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r7" value="- processed_by: int (FK)" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="146" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r8" value="- created_at: datetime" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="166" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r9" value="" style="line;strokeColor=#9673a6;" vertex="1" parent="riw"><mxGeometry y="186" width="240" height="8" as="geometry"/></mxCell>
+        <mxCell id="r10" value="+ search(keyword)" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="194" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r11" value="+ update(data)" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="214" width="240" height="20" as="geometry"/></mxCell>
+        <mxCell id="r12" value="+ delete()" style="text;align=left;fontSize=11;" vertex="1" parent="riw"><mxGeometry y="234" width="240" height="20" as="geometry"/></mxCell>
+        <!-- AuthMiddleware -->
+        <mxCell id="auth" value="&lt;b&gt;AuthMiddleware&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="80" y="430" width="220" height="90" as="geometry"/></mxCell>
+        <mxCell id="a01" value="" style="line;strokeColor=#d6b656;" vertex="1" parent="auth"><mxGeometry y="26" width="220" height="8" as="geometry"/></mxCell>
+        <mxCell id="a02" value="+ authenticateToken()" style="text;align=left;fontSize=11;" vertex="1" parent="auth"><mxGeometry y="34" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="a03" value="+ requireRole(role)" style="text;align=left;fontSize=11;" vertex="1" parent="auth"><mxGeometry y="54" width="220" height="20" as="geometry"/></mxCell>
+        <!-- SKGenerator -->
+        <mxCell id="skg" value="&lt;b&gt;SKGenerator&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="400" y="430" width="220" height="90" as="geometry"/></mxCell>
+        <mxCell id="sk1" value="" style="line;strokeColor=#b85450;" vertex="1" parent="skg"><mxGeometry y="26" width="220" height="8" as="geometry"/></mxCell>
+        <mxCell id="sk2" value="+ generateSKNumber()" style="text;align=left;fontSize=11;" vertex="1" parent="skg"><mxGeometry y="34" width="220" height="20" as="geometry"/></mxCell>
+        <mxCell id="sk3" value="+ formatDate(dateStr)" style="text;align=left;fontSize=11;" vertex="1" parent="skg"><mxGeometry y="54" width="220" height="20" as="geometry"/></mxCell>
+        <!-- Relationships -->
+        <mxCell id="rel1" value="submits 1..*" style="endArrow=open;fontSize=10;" edge="1" parent="1" source="user" target="peng"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="rel2" value="produces 0..1" style="endArrow=open;fontSize=10;" edge="1" parent="1" source="peng" target="riw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="rel3" value="processes 1..*" style="endArrow=open;fontSize=10;" edge="1" parent="1" source="user" target="riw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="rel4" value="validates" style="endArrow=open;dashed=1;fontSize=10;" edge="1" parent="1" source="auth" target="user"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="rel5" value="uses" style="endArrow=open;dashed=1;fontSize=10;" edge="1" parent="1" source="peng" target="skg"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

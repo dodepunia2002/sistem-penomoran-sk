@@ -17,13 +17,6 @@ server/data.db
 server/data.db-wal
 server/data.db-shm
 
-# Lockfiles
-package-lock.json
-
-# Diagram sources (keep PNG exports)
-*.drawio
-docs/diagrams/*.drawio
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

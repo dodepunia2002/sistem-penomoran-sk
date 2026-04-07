@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net" modified="2025-07-26" type="device">
+  <diagram id="dfd0" name="DFD Level 0 - Context Diagram">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title0" value="DFD Level 0 - Context Diagram&#xa;Sistem Penomoran SK" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="400" height="50" as="geometry"/>
+        </mxCell>
+        <!-- External Entities -->
+        <mxCell id="petugas" value="PETUGAS" style="shape=rectangle;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="admin" value="ADMIN" style="shape=rectangle;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="800" y="280" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <!-- System Process -->
+        <mxCell id="system" value="SISTEM PENOMORAN SK&#xa;Dinas Perhubungan&#xa;Kabupaten Gianyar" style="shape=ellipse;perimeter=ellipsePerimeter;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="350" y="230" width="280" height="160" as="geometry"/>
+        </mxCell>
+        <!-- Data Flows -->
+        <mxCell id="f1" value="Data Pengajuan SK&#xa;(Nama, Alamat, Tanggal)" style="fontSize=10;fontStyle=2;" edge="1" parent="1" source="petugas" target="system">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="280" y="260"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="f2" value="Status Pengajuan&#xa;&amp; Riwayat" style="fontSize=10;fontStyle=2;" edge="1" parent="1" source="system" target="petugas">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="280" y="360"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="f3" value="Verifikasi &amp;&#xa;Pemberian Nomor SK" style="fontSize=10;fontStyle=2;" edge="1" parent="1" source="admin" target="system">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="720" y="260"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="f4" value="Daftar Pengajuan,&#xa;Riwayat SK, Data User" style="fontSize=10;fontStyle=2;" edge="1" parent="1" source="system" target="admin">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="720" y="360"/></Array></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dfd1" name="DFD Level 1">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="900">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title1" value="DFD Level 1 - Sistem Penomoran SK" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="10" width="400" height="40" as="geometry"/>
+        </mxCell>
+        <!-- External Entities -->
+        <mxCell id="pet" value="PETUGAS" style="shape=rectangle;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="20" y="310" width="120" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="adm" value="ADMIN" style="shape=rectangle;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="880" y="310" width="120" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Processes -->
+        <mxCell id="p1" value="1.0&#xa;Proses Login &amp;&#xa;Autentikasi" style="shape=ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="410" y="80" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2" value="2.0&#xa;Proses Pengajuan&#xa;Nomor SK" style="shape=ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3" value="3.0&#xa;Proses Verifikasi&#xa;&amp; Pemberian Nomor" style="shape=ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="600" y="280" width="180" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="p4" value="4.0&#xa;Proses Pengelolaan&#xa;Riwayat SK" style="shape=ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="600" y="500" width="180" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="p5" value="5.0&#xa;Proses Manajemen&#xa;User" style="shape=ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="830" y="500" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <!-- Data Stores -->
+        <mxCell id="d1" value="D1: Data Users" style="shape=partialRectangle;top=0;left=0;right=0;bottom=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="410" y="200" width="160" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="d2" value="D2: Data Pengajuan" style="shape=partialRectangle;top=0;left=0;right=0;bottom=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="420" width="180" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="d3" value="D3: Data Riwayat" style="shape=partialRectangle;top=0;left=0;right=0;bottom=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="560" width="160" height="30" as="geometry"/>
+        </mxCell>
+        <!-- Flows -->
+        <mxCell id="fl1" value="Username/Password" style="fontSize=9;" edge="1" parent="1" source="pet" target="p1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl2" value="Username/Password" style="fontSize=9;" edge="1" parent="1" source="adm" target="p1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl3" value="" edge="1" parent="1" source="p1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl4" value="Nama/Alamat/Tanggal" style="fontSize=9;" edge="1" parent="1" source="pet" target="p2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl5" value="" edge="1" parent="1" source="p2" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl6" value="Terima/Tolak" style="fontSize=9;" edge="1" parent="1" source="adm" target="p3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl7" value="" edge="1" parent="1" source="d2" target="p3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl8" value="" edge="1" parent="1" source="p3" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl9" value="Cari/Edit/Hapus" style="fontSize=9;" edge="1" parent="1" source="adm" target="p4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl10" value="" edge="1" parent="1" source="d3" target="p4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl11" value="CRUD User" style="fontSize=9;" edge="1" parent="1" source="adm" target="p5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="fl12" value="" edge="1" parent="1" source="p5" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
