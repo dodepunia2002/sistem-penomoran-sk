@@ -186,8 +186,7 @@ Buka browser dan akses: <http://localhost>
 
 ## 📂 Analisis & Perancangan Sistem (RPL)
 
-<details>
-<summary>📐 **View Use Case Diagram**</summary>
+### 📐 View Use Case Diagram
 
 ```mermaid
 usecaseDiagram
@@ -214,10 +213,7 @@ usecaseDiagram
     A --> UC6
 ```
 
-</details>
-
-<details>
-<summary>🗃️ **View Entity Relationship Diagram (ERD)**</summary>
+### 🗃️ View Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
@@ -250,10 +246,7 @@ erDiagram
     }
 ```
 
-</details>
-
-<details>
-<summary>⚙️ **View Activity Diagram (Proses Verifikasi)**</summary>
+### ⚙️ View Activity Diagram (Proses Verifikasi)
 
 ```mermaid
 activityDiagram
@@ -274,8 +267,6 @@ activityDiagram
     end
     stop
 ```
-
-</details>
 
 ---
 
