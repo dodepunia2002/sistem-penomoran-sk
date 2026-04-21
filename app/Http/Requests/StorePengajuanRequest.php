@@ -16,7 +16,7 @@ class StorePengajuanRequest extends FormRequest
         return [
             'nama'    => ['required', 'string', 'max:255'],
             'alamat'  => ['required', 'string', 'max:500'],
-            'tanggal' => ['required', 'date', 'date_format:Y-m-d'],
+            'tanggal' => ['required', 'date'],
         ];
     }
 

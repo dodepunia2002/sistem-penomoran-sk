@@ -60,7 +60,16 @@ class UserController extends Controller
             return back()->with('error', 'Tidak dapat menghapus akun Anda sendiri.');
         }
 
+        // Cek apakah user punya pengajuan yang sudah diproses (diterima/ditolak)
+        $processedCount = $user->pengajuan()->whereIn('status', ['diterima', 'ditolak'])->count();
+        if ($processedCount > 0) {
+            return back()->with('error', "Tidak dapat menghapus user '{$user->name}' karena memiliki {$processedCount} pengajuan yang sudah diproses. Hapus data riwayat terkait terlebih dahulu.");
+        }
+
         $name = $user->name;
+
+        // Hapus pengajuan pending milik user (aman karena belum diproses)
+        $user->pengajuan()->where('status', 'pending')->delete();
         $user->delete();
 
         return back()->with('success', "User '{$name}' berhasil dihapus.");

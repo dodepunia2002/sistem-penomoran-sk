@@ -34,7 +34,7 @@
                                 </form>
                                 <form action="{{ route('admin.pengajuan.terima', $row) }}" method="POST" style="display:inline">
                                     @csrf
-                                    <button type="submit" class="btn btn-success btn-sm">TERIMA</button>
+                                    <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Terima pengajuan dari {{ addslashes($row->nama) }}?\nNomor SK akan digenerate otomatis.')">TERIMA</button>
                                 </form>
                             </td>
                         </tr>

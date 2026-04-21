@@ -46,10 +46,9 @@ Route::middleware(['auth', 'role:admin'])
             ->middleware('throttle:10,1');
 
         // Riwayat
-        Route::get('/riwayat', [RiwayatController::class, 'index'])
-            ->name('riwayat');
-        Route::put('/riwayat/{riwayat}', [RiwayatController::class, 'update'])
-            ->name('riwayat.update');
+        Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat');
+        Route::get('/riwayat/cetak', [RiwayatController::class, 'cetak'])->name('riwayat.cetak');
+        Route::put('/riwayat/{riwayat}', [RiwayatController::class, 'update'])->name('riwayat.update');
         Route::delete('/riwayat/{riwayat}', [RiwayatController::class, 'destroy'])
             ->name('riwayat.destroy');
 

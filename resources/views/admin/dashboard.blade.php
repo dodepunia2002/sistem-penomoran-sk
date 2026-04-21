@@ -36,8 +36,8 @@
             <div><div class="stat-value">{{ $stats['ditolak'] }}</div><div class="stat-label">Ditolak</div></div>
         </div>
         <div class="stat-card" style="border-left-color: #8b5cf6;">
-            <div class="stat-icon" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">🗂</div>
-            <div><div class="stat-value">{{ $stats['totalRiwayat'] }}</div><div class="stat-label">Total Riwayat SK</div></div>
+            <div class="stat-icon" style="background: rgba(139,92,246,0.1); color: #8b5cf6;">📈</div>
+            <div><div class="stat-value">{{ $stats['diterimaBulanIni'] }}</div><div class="stat-label">Diterima Bulan Ini</div></div>
         </div>
         <div class="stat-card" style="border-left-color: #06b6d4;">
             <div class="stat-icon" style="background: rgba(6,182,212,0.1); color: #06b6d4;">👥</div>

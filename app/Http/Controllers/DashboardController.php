@@ -24,16 +24,18 @@ class DashboardController extends Controller
                 COUNT(*) as total,
                 SUM(CASE WHEN status = 'pending'  THEN 1 ELSE 0 END) as pending,
                 SUM(CASE WHEN status = 'diterima' THEN 1 ELSE 0 END) as diterima,
-                SUM(CASE WHEN status = 'ditolak'  THEN 1 ELSE 0 END) as ditolak
+                SUM(CASE WHEN status = 'ditolak'  THEN 1 ELSE 0 END) as ditolak,
+                SUM(CASE WHEN status = 'diterima' AND MONTH(created_at) = MONTH(CURRENT_DATE) AND YEAR(created_at) = YEAR(CURRENT_DATE) THEN 1 ELSE 0 END) as diterima_bulan_ini
             ")->first();
 
             return [
-                'totalPengajuan' => (int) $statusCounts->total,
-                'pending'        => (int) $statusCounts->pending,
-                'diterima'       => (int) $statusCounts->diterima,
-                'ditolak'        => (int) $statusCounts->ditolak,
-                'totalRiwayat'   => Riwayat::count(),
-                'totalUsers'     => User::count(),
+                'totalPengajuan'    => (int) $statusCounts->total,
+                'pending'           => (int) $statusCounts->pending,
+                'diterima'          => (int) $statusCounts->diterima,
+                'ditolak'           => (int) $statusCounts->ditolak,
+                'diterimaBulanIni'  => (int) $statusCounts->diterima_bulan_ini,
+                'totalRiwayat'      => Riwayat::count(),
+                'totalUsers'        => User::count(),
             ];
         });
 

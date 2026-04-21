@@ -1,7 +1,9 @@
 <x-app-layout>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
         <h2 class="page-title" style="margin-bottom:0">RIWAYAT PENOMORAN SK</h2>
-        <button class="btn btn-primary no-print" onclick="window.print()">🖨 CETAK LAPORAN</button>
+        <a href="{{ route('admin.riwayat.cetak', request()->all()) }}" target="_blank" class="btn btn-primary no-print">
+            📊 CETAK LAPORAN
+        </a>
     </div>
 
     {{-- Flash Messages --}}
@@ -17,15 +19,37 @@
     @endif
 
     <div class="card">
-        {{-- Search Bar --}}
-        <form method="GET" class="no-print" style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
-            <input type="text" name="search" value="{{ request('search') }}"
-                   placeholder="Cari nama, alamat, atau nomor SK..."
-                   class="form-input" style="flex: 1;">
-            <button type="submit" class="btn btn-primary btn-sm">Cari</button>
-            @if(request('search'))
-                <a href="{{ route('admin.riwayat') }}" class="btn btn-cancel btn-sm">Reset</a>
-            @endif
+        {{-- Filter & Search Bar --}}
+        <form method="GET" class="no-print" style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+            <div style="flex: 1; min-width: 250px; display: flex; gap: 0.5rem;">
+                <input type="text" name="search" value="{{ request('search') }}"
+                       placeholder="Cari nama, alamat, atau nomor SK..."
+                       class="form-input" style="flex: 1;">
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <select name="month" class="form-input" style="padding-right: 2rem;">
+                    <option value="">Semua Bulan</option>
+                    @for($m=1; $m<=12; $m++)
+                        <option value="{{ $m }}" {{ request('month') == $m ? 'selected' : '' }}>
+                            {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
+                        </option>
+                    @endfor
+                </select>
+
+                <select name="year" class="form-input">
+                    <option value="">Semua Tahun</option>
+                    @php $currentYear = date('Y'); @endphp
+                    @for($y=$currentYear; $y>=$currentYear-5; $y--)
+                        <option value="{{ $y }}" {{ request('year') == $y ? 'selected' : '' }}>{{ $y }}</option>
+                    @endfor
+                </select>
+
+                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                @if(request()->anyFilled(['search', 'month', 'year']))
+                    <a href="{{ route('admin.riwayat') }}" class="btn btn-cancel btn-sm">Reset</a>
+                @endif
+            </div>
         </form>
 
         @if($riwayat->isEmpty())
@@ -59,9 +83,13 @@
                             <td class="no-print" style="text-align: center;">
                                 {{-- Tombol Edit --}}
                                 <button type="button"
-                                        class="btn btn-warning btn-sm"
+                                        class="btn btn-warning btn-sm edit-btn"
                                         style="margin-right:0.25rem"
-                                        onclick="openEditModal({{ $row->id }}, '{{ addslashes($row->nama) }}', '{{ addslashes($row->alamat) }}', '{{ $row->tanggal }}', '{{ $row->nomor_sk }}')">
+                                        data-id="{{ $row->id }}"
+                                        data-nama="{{ e($row->nama) }}"
+                                        data-alamat="{{ e($row->alamat) }}"
+                                        data-tanggal="{{ $row->tanggal }}"
+                                        data-nomor-sk="{{ e($row->nomor_sk) }}">
                                     ✏️ Edit
                                 </button>
                                 {{-- Tombol Hapus --}}
@@ -171,12 +199,12 @@
     <script>
         const BASE_URL = '{{ url("/admin/riwayat") }}';
 
-        function openEditModal(id, nama, alamat, tanggal, nomorSk) {
-            document.getElementById('edit_nama').value    = nama;
-            document.getElementById('edit_alamat').value  = alamat;
-            document.getElementById('edit_tanggal').value = tanggal;
-            document.getElementById('edit_nomor_sk').value = nomorSk;
-            document.getElementById('editForm').action    = BASE_URL + '/' + id;
+        function openEditModal(btn) {
+            document.getElementById('edit_nama').value     = btn.dataset.nama;
+            document.getElementById('edit_alamat').value   = btn.dataset.alamat;
+            document.getElementById('edit_tanggal').value  = btn.dataset.tanggal;
+            document.getElementById('edit_nomor_sk').value = btn.dataset.nomorSk;
+            document.getElementById('editForm').action     = BASE_URL + '/' + btn.dataset.id;
             document.getElementById('editModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -185,6 +213,11 @@
             document.getElementById('editModal').classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        // Attach click handlers to all edit buttons
+        document.querySelectorAll('.edit-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() { openEditModal(this); });
+        });
 
         // Close modal bila klik di luar area
         document.getElementById('editModal').addEventListener('click', function(e) {

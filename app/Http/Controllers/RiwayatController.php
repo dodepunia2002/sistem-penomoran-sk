@@ -9,6 +9,15 @@ class RiwayatController extends Controller
 {
     public function index(Request $request)
     {
+        $riwayat = $this->getFilteredQuery($request)->paginate(15);
+        return view('admin.riwayat', compact('riwayat'));
+    }
+
+    /**
+     * Get the filtered query for both index and cetak.
+     */
+    private function getFilteredQuery(Request $request)
+    {
         $query = Riwayat::with('processor')->latest();
 
         if ($request->filled('search')) {
@@ -20,8 +29,24 @@ class RiwayatController extends Controller
             });
         }
 
-        $riwayat = $query->paginate(15);
-        return view('admin.riwayat', compact('riwayat'));
+        if ($request->filled('month')) {
+            $query->whereMonth('tanggal', $request->month);
+        }
+
+        if ($request->filled('year')) {
+            $query->whereYear('tanggal', $request->year);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Print report view.
+     */
+    public function cetak(Request $request)
+    {
+        $riwayat = $this->getFilteredQuery($request)->get();
+        return view('admin.report', compact('riwayat'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

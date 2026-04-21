@@ -7,6 +7,7 @@ use App\Models\Pengajuan;
 use App\Models\Riwayat;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -54,6 +55,10 @@ class PengajuanController extends Controller
             'tanggal'      => $request->tanggal,
             'submitted_by' => auth()->id(),
         ]);
+
+        // Invalidate caches
+        Cache::forget('admin_dashboard_stats');
+        Cache::forget("petugas_stats_" . auth()->id());
 
         return redirect()
             ->route('petugas.riwayat')
@@ -145,6 +150,10 @@ class PengajuanController extends Controller
                 return $nomorSK;
             });
 
+            // Invalidate all dashboard caches
+            Cache::forget('admin_dashboard_stats');
+            Cache::forget("petugas_stats_{$pengajuan->submitted_by}");
+
             return back()->with('success', "✅ Pengajuan diterima! Nomor SK: {$nomorSK}");
         } catch (\RuntimeException $e) {
             if ($e->getMessage() === 'already_processed') {
@@ -164,6 +173,10 @@ class PengajuanController extends Controller
         }
 
         $pengajuan->update(['status' => 'ditolak']);
+
+        // Invalidate all dashboard caches
+        Cache::forget('admin_dashboard_stats');
+        Cache::forget("petugas_stats_{$pengajuan->submitted_by}");
 
         return back()->with('success', 'Pengajuan telah ditolak.');
     }
