@@ -1,0 +1,98 @@
+# ============================================================
+# Stage 1: Build frontend assets
+# ============================================================
+FROM node:20-alpine AS node-builder
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --ignore-scripts
+
+COPY resources/ resources/
+COPY vite.config.js tailwind.config.js postcss.config.js ./
+COPY public/ public/
+
+RUN npm run build
+
+# ============================================================
+# Stage 2: PHP runtime (production)
+# ============================================================
+FROM php:8.3-fpm-alpine AS runtime
+
+LABEL maintainer="Dishub Gianyar Dev Team"
+LABEL description="Sistem Penomoran SK - Laravel 13"
+
+# Install system dependencies
+RUN apk add --no-cache \
+    bash \
+    curl \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    freetype-dev \
+    oniguruma-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    git \
+    icu-dev \
+    icu-libs \
+    mysql-client \
+    redis
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) \
+        pdo \
+        pdo_mysql \
+        mbstring \
+        exif \
+        pcntl \
+        bcmath \
+        gd \
+        intl \
+        opcache \
+        xml \
+    && pecl install redis \
+    && docker-php-ext-enable redis
+
+# Install Composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy composer files and install dependencies (production)
+COPY composer.json composer.lock ./
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --no-autoloader \
+    --no-scripts \
+    --prefer-dist
+
+# Copy application source
+COPY . .
+
+# Copy compiled assets from node-builder
+COPY --from=node-builder /app/public/build ./public/build
+
+# Finalize composer (autoloader, scripts)
+RUN composer dump-autoload --optimize --no-dev
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
+
+# Copy PHP config
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
+
+# Copy entrypoint
+COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+EXPOSE 9000
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]

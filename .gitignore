@@ -1,0 +1,44 @@
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+.env
+.env.backup
+.env.production
+.env.local
+.env.testing
+
+# Docker specific
+!.env.docker
+!.env.example
+docker-compose.override.yml
+
+# PHP / Laravel
+.phpunit.result.cache
+.phpunit.cache
+.phpactor.json
+_ide_helper.php
+Homestead.json
+Homestead.yaml
+
+# IDEs
+.idea
+.vscode
+.zed
+.nova
+.fleet
+*.log
+.DS_Store
+Thumbs.db
+
+# Database
+/database/*.sqlite
+/database/*.sqlite-journal
+
+# Compiled assets
+mix-manifest.json
+package-lock.json
+public/mix-manifest.json

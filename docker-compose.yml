@@ -1,0 +1,122 @@
+services:
+  # ─────────────────────────────────────────
+  # Laravel Application (PHP-FPM)
+  # ─────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: sk_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor          # preserve container vendor
+      - /var/www/html/node_modules    # preserve container node_modules
+      - /var/www/html/public/build    # preserve built assets
+      - sk_storage:/var/www/html/storage
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+    env_file:
+      - .env
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - sk_network
+
+  # ─────────────────────────────────────────
+  # Nginx Web Server
+  # ─────────────────────────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: sk_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html:ro
+      - sk_storage:/var/www/html/storage:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - sk_network
+
+  # ─────────────────────────────────────────
+  # MySQL 8.0
+  # ─────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: sk_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-sistem_sk}
+      MYSQL_USER: ${DB_USERNAME:-sk_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-sk_password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_secret}
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    volumes:
+      - sk_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-root_secret}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - sk_network
+
+  # ─────────────────────────────────────────
+  # Redis (Cache & Session)
+  # ─────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: sk_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - sk_redis_data:/data
+    networks:
+      - sk_network
+
+  # ─────────────────────────────────────────
+  # Vite Dev Server (development only)
+  # ─────────────────────────────────────────
+  vite:
+    image: node:20-alpine
+    container_name: sk_vite
+    profiles:
+      - dev
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - sk_network
+
+# ─────────────────────────────────────────
+# Networks & Volumes
+# ─────────────────────────────────────────
+networks:
+  sk_network:
+    driver: bridge
+
+volumes:
+  sk_mysql_data:
+    driver: local
+  sk_redis_data:
+    driver: local
+  sk_storage:
+    driver: local
