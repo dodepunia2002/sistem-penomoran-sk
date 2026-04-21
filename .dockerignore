@@ -23,5 +23,5 @@ phpunit.xml
 .DS_Store
 .vscode
 backup_nextjs
-docker/
+# docker/
 Makefile

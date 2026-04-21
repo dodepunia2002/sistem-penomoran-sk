@@ -17,33 +17,33 @@ help: ## Show this help
 
 # ── Docker Lifecycle ───────────────────────────────────────────
 up: ## Start all containers (detached)
-	docker compose up -d
+	/usr/local/bin/docker compose up -d
 	@echo "✅ App running at http://localhost"
 
 up-dev: ## Start all containers including Vite dev server
-	docker compose --profile dev up -d
+	/usr/local/bin/docker compose --profile dev up -d
 	@echo "✅ App running at http://localhost | Vite at http://localhost:5173"
 
 down: ## Stop and remove containers
-	docker compose down
+	/usr/local/bin/docker compose down
 
 restart: ## Restart all containers
-	docker compose restart
+	/usr/local/bin/docker compose restart
 
 build: ## Build / rebuild Docker image
-	docker compose build --no-cache
+	/usr/local/bin/docker compose build --no-cache
 
 ps: ## Show running containers status
-	docker compose ps
+	/usr/local/bin/docker compose ps
 
 logs: ## Tail all container logs
-	docker compose logs -f
+	/usr/local/bin/docker compose logs -f
 
 logs-app: ## Tail app (Laravel) logs only
-	docker compose logs -f app
+	/usr/local/bin/docker compose logs -f app
 
 logs-nginx: ## Tail Nginx logs only
-	docker compose logs -f nginx
+	/usr/local/bin/docker compose logs -f nginx
 
 # ── Setup ──────────────────────────────────────────────────────
 env-setup: ## Copy .env.docker to .env (for Docker use)
@@ -55,33 +55,33 @@ env-setup: ## Copy .env.docker to .env (for Docker use)
 	fi
 
 key: ## Generate application key (run after env-setup)
-	docker compose exec app php artisan key:generate
+	/usr/local/bin/docker compose exec app php artisan key:generate
 
 # ── Database ───────────────────────────────────────────────────
 migrate: ## Run database migrations
-	docker compose exec app php artisan migrate --force
+	/usr/local/bin/docker compose exec app php artisan migrate --force
 
 seed: ## Run database seeders
-	docker compose exec app php artisan db:seed --force
+	/usr/local/bin/docker compose exec app php artisan db:seed --force
 
 fresh: ## Drop all tables, run migrations & seed (⚠ destroys data!)
-	docker compose exec app php artisan migrate:fresh --seed --force
+	/usr/local/bin/docker compose exec app php artisan migrate:fresh --seed --force
 
 # ── Laravel ────────────────────────────────────────────────────
 shell: ## Open a shell inside the app container
-	docker compose exec app bash
+	/usr/local/bin/docker compose exec app bash
 
 tinker: ## Open Laravel Tinker REPL
-	docker compose exec app php artisan tinker
+	/usr/local/bin/docker compose exec app php artisan tinker
 
 optimize: ## Cache config, routes, events, views
-	docker compose exec app php artisan optimize
+	/usr/local/bin/docker compose exec app php artisan optimize
 
 clear: ## Clear all Laravel caches
-	docker compose exec app php artisan optimize:clear
+	/usr/local/bin/docker compose exec app php artisan optimize:clear
 
 test: ## Run PHPUnit tests
-	docker compose exec app php artisan test
+	/usr/local/bin/docker compose exec app php artisan test
 
 queue: ## Start queue worker inside container
-	docker compose exec app php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+	/usr/local/bin/docker compose exec app php artisan queue:work --sleep=3 --tries=3 --max-time=3600

@@ -116,7 +116,6 @@ Gunakan perintah `make` untuk kemudahan:
 
 ```bash
 make up         # Menjalankan container di background
-make key        # Generate Application Key
 make migrate    # Menjalankan migrasi database
 make seed       # Mengisi data awal (Admin & Petugas)
 ```
