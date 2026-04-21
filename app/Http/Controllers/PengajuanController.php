@@ -26,8 +26,9 @@ class PengajuanController extends Controller
             return view('admin.pemberian-nomor', compact('pengajuan'));
         }
 
-        // Petugas — lihat riwayat pengajuan sendiri
-        $pengajuan = Pengajuan::where('submitted_by', auth()->id())
+        // Petugas — lihat riwayat pengajuan sendiri (with nomor SK jika sudah diterima)
+        $pengajuan = Pengajuan::with('riwayat')
+            ->where('submitted_by', auth()->id())
             ->latest()
             ->get();
 

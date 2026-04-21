@@ -27,11 +27,15 @@ class RiwayatController extends Controller
     public function update(Request $request, Riwayat $riwayat)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'alamat' => 'required|string|max:500',
+            'nama'     => ['required', 'string', 'max:255'],
+            'alamat'   => ['required', 'string', 'max:500'],
+            'tanggal'  => ['required', 'date'],
+            'nomor_sk' => ['required', 'string', 'max:100'],
         ]);
-        $riwayat->update($request->only('nama', 'alamat'));
-        return back()->with('success', 'Data riwayat berhasil diperbarui.');
+
+        $riwayat->update($request->only('nama', 'alamat', 'tanggal', 'nomor_sk'));
+
+        return back()->with('success', 'Data riwayat SK berhasil diperbarui.');
     }
 
     public function destroy(Riwayat $riwayat)

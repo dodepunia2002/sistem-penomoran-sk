@@ -1,5 +1,11 @@
 <x-app-layout>
-    @php $hour = now()->hour; $greeting = $hour < 11 ? '🌅 Selamat Pagi' : ($hour < 15 ? '☀️ Selamat Siang' : ($hour < 18 ? '🌇 Selamat Sore' : '🌙 Selamat Malam')); @endphp
+    @php
+        $hour = now()->setTimezone('Asia/Makassar')->hour;
+        if ($hour >= 0 && $hour < 11)       { $greeting = '🌅 Selamat Pagi'; }
+        elseif ($hour >= 11 && $hour < 15)  { $greeting = '☀️ Selamat Siang'; }
+        elseif ($hour >= 15 && $hour < 18)  { $greeting = '🌇 Selamat Sore'; }
+        else                                { $greeting = '🌙 Selamat Malam'; }
+    @endphp
 
     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
         <div class="greeting">

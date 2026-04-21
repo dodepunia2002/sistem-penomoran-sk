@@ -22,6 +22,14 @@
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
+        <!-- Info Notice (e.g. register disabled) -->
+        @if(session('info'))
+            <div style="background:#dbeafe; border:1px solid #93c5fd; color:#1e40af; padding:0.75rem 1rem; border-radius:0.75rem; font-size:0.82rem; margin-bottom:1.25rem; text-align:left;">
+                ℹ️ {{ session('info') }}
+            </div>
+        @endif
+
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
