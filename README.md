@@ -1,4 +1,5 @@
 # 🏛️ Sistem Penomoran SK - Dishub Gianyar
+
 ## [Tugas Proyek Mata Kuliah: Rekayasa Perangkat Lunak (RPL)]
 
 [![Laravel Version](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
@@ -12,15 +13,15 @@ Platform manajemen dan penomoran otomatis Surat Keputusan (SK) untuk **Dinas Per
 
 ## 📑 DAFTAR ISI
 
-*   [📝 Deskripsi Proyek](#-deskripsi-proyek)
-*   [🛠️ Teknologi yang Digunakan](#%EF%B8%8F-teknologi-yang-digunakan)
-*   [📂 Struktur Direktori](#-struktur-direktori)
-*   [🚀 Persiapan & Instalasi](#-persiapan--instalasi-docker)
-*   [🔗 API Endpoints](#-api-endpoints)
-*   [🗄️ Struktur Database](#%EF%B8%8F-struktur-database)
-*   [📂 Analisis & Perancangan (UML)](#-analisis--perancangan-sistem-rpl)
-*   [👥 Tim Pengembang](#-tim-pengembang-kelompok)
-*   [📄 Lisensi](#-lisensi)
+* [📝 Deskripsi Proyek](#-deskripsi-proyek)
+* [🛠️ Teknologi yang Digunakan](#%EF%B8%8F-teknologi-yang-digunakan)
+* [📂 Struktur Direktori](#-struktur-direktori)
+* [🚀 Persiapan & Instalasi](#-persiapan--instalasi-docker)
+* [🔗 API Endpoints](#-api-endpoints)
+* [🗄️ Struktur Database](#%EF%B8%8F-struktur-database)
+* [📂 Analisis & Perancangan (UML)](#-analisis--perancangan-sistem-rpl)
+* [👥 Tim Pengembang](#-tim-pengembang-kelompok)
+* [📄 Lisensi](#-lisensi)
 
 ---
 
@@ -49,9 +50,9 @@ Proyek ini mengikuti siklus **SDLC (Software Development Life Cycle)** dengan pe
 
 ### Penerapan Prinsip RPL
 
-- **Maintainability**: Kode terstruktur rapi dengan mengikuti konvensi standar Laravel untuk memudahkan pemeliharaan jangka panjang.
-- **Scalability**: Penggunaan Redis dan database locking memungkinkan sistem menangani beban request yang tinggi di masa depan.
-- **Reliability**: Jaminan integritas data melalui mekanisme *database transaction* (Atomicity) pada proses pemberian nomor SK.
+* **Maintainability**: Kode terstruktur rapi dengan mengikuti konvensi standar Laravel untuk memudahkan pemeliharaan jangka panjang.
+* **Scalability**: Penggunaan Redis dan database locking memungkinkan sistem menangani beban request yang tinggi di masa depan.
+* **Reliability**: Jaminan integritas data melalui mekanisme *database transaction* (Atomicity) pada proses pemberian nomor SK.
 
 ---
 
@@ -129,6 +130,7 @@ Buka browser dan akses: <http://localhost>
 ## 🔗 API Endpoints
 
 ### 🔐 Authentication
+
 | Method | Endpoint | Admin | Petugas | Deskripsi |
 | :--- | :--- | :---: | :---: | :--- |
 | POST | `/login` | ✅ | ✅ | Masuk ke sistem |
@@ -136,6 +138,7 @@ Buka browser dan akses: <http://localhost>
 | GET | `/register` | ❌ | ❌ | Pendaftaran akun (Disabled) |
 
 ### 👑 Admin Routes (Prefix: `/admin`)
+
 | Method | Endpoint | Deskripsi |
 | :--- | :--- | :--- |
 | GET | `/` | Dashboard Statistik (Real-time) |
@@ -146,6 +149,7 @@ Buka browser dan akses: <http://localhost>
 | GET | `/manajemen-user` | Kelola data Admin/Petugas |
 
 ### 👮 Petugas Routes (Prefix: `/petugas`)
+
 | Method | Endpoint | Deskripsi |
 | :--- | :--- | :--- |
 | GET | `/` | Dashboard Personal |
@@ -158,6 +162,7 @@ Buka browser dan akses: <http://localhost>
 ## 🗄️ Struktur Database
 
 ### Table: `users`
+
 | Column | Type | Nullable | Description |
 | :--- | :--- | :---: | :--- |
 | id | bigint (PK) | No | Unique User ID |
@@ -167,6 +172,7 @@ Buka browser dan akses: <http://localhost>
 | role | enum | No | 'admin', 'petugas' |
 
 ### Table: `pengajuan`
+
 | Column | Type | Nullable | Description |
 | :--- | :--- | :---: | :--- |
 | id | bigint (PK) | No | Record ID |
@@ -200,13 +206,14 @@ usecaseDiagram
     P --> UC1
     P --> UC2
     P --> UC3
-    
+
     A --> UC1
     A --> UC2
     A --> UC4
     A --> UC5
     A --> UC6
 ```
+
 </details>
 
 <details>
@@ -242,6 +249,7 @@ erDiagram
         bigint processed_by FK
     }
 ```
+
 </details>
 
 <details>
@@ -266,6 +274,7 @@ activityDiagram
     end
     stop
 ```
+
 </details>
 
 ---
@@ -276,10 +285,9 @@ Proyek ini dikembangkan oleh kelompok mahasiswa untuk tugas mata kuliah **Rekaya
 
 | Nama Lengkap | NIM | Peran Utama |
 | :--- | :--- | :--- |
-| **[Nama Ketua/Anda]** | [NIM Lengkap] | Project Manager & DevOps Engineering |
-| **[Anggota 2]** | [NIM Lengkap] | Frontend Developer & UI/UX Designer |
-| **[Anggota 3]** | [NIM Lengkap] | Backend Developer & Database Analyst |
-| **[Anggota 4]** | [NIM Lengkap] | System Analyst & Technical Writer |
+| **I DEWA GEDE PUNIA ATMAJA** | 220030750 | Project Manager & DevOps Engineering |
+| **I WAYAN PANDYA ARYASUTA PUTRA GAMA** | 220030770 | Frontend Developer & UI/UX Designer |
+| **MUHAMMAD ABBAS SYAH** | 240030361 | Backend Developer & Database Analyst |
 
 ---
 
