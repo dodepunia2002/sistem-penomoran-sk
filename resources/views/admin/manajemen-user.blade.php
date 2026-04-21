@@ -78,7 +78,11 @@
                         <td>{{ $user->created_at->format('d M Y') }}</td>
                         <td style="text-align: center;">
                             @if($user->id !== auth()->id())
-                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline" onsubmit="return confirm('Hapus user {{ addslashes($user->name) }}?')">
+                                <form action="{{ route('admin.users.reset', $user) }}" method="POST" style="display:inline" onsubmit="return confirm('Reset password untuk {{ addslashes($user->name) }} ke: dishub123?')">
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning btn-sm" style="margin-right: 0.25rem;">Reset</button>
+                                </form>
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline" onsubmit="return confirm('Hapus user {{ addslashes($user->name) }}?\nSemua data terkait pengajuan yang sedang diproses harus dihapus manual jika ada.')">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                 </form>

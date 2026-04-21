@@ -54,6 +54,15 @@ class UserController extends Controller
         return back()->with('success', "Data user '{$user->name}' berhasil diperbarui.");
     }
 
+    public function resetPassword(User $user): RedirectResponse
+    {
+        $user->update([
+            'password' => Hash::make('dishub123'),
+        ]);
+
+        return back()->with('success', "Password user '{$user->name}' berhasil direset ke: dishub123");
+    }
+
     public function destroy(User $user): RedirectResponse
     {
         if ($user->id === auth()->id()) {

@@ -59,6 +59,8 @@ Route::middleware(['auth', 'role:admin'])
             ->name('users.store');
         Route::put('/users/{user}', [UserController::class, 'update'])
             ->name('users.update');
+        Route::post('/users/{user}/reset', [UserController::class, 'resetPassword'])
+            ->name('users.reset');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])
             ->name('users.destroy');
     });

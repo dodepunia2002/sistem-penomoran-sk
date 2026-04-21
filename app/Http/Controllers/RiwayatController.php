@@ -18,7 +18,7 @@ class RiwayatController extends Controller
      */
     private function getFilteredQuery(Request $request)
     {
-        $query = Riwayat::with('processor')->latest();
+        $query = Riwayat::with(['processor', 'pengajuan'])->latest();
 
         if ($request->filled('search')) {
             $search = $request->search;

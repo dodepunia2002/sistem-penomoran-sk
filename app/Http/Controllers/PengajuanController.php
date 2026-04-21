@@ -28,7 +28,7 @@ class PengajuanController extends Controller
         }
 
         // Petugas — lihat riwayat pengajuan sendiri (with nomor SK jika sudah diterima)
-        $pengajuan = Pengajuan::with('riwayat')
+        $pengajuan = Pengajuan::with(['riwayat', 'riwayat.processor'])
             ->where('submitted_by', auth()->id())
             ->latest()
             ->get();

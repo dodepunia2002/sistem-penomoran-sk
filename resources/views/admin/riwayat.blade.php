@@ -81,6 +81,21 @@
                             <td>{{ \Carbon\Carbon::parse($row->tanggal)->format('d/m/Y') }}</td>
                             <td><span class="sk-badge">{{ $row->nomor_sk }}</span></td>
                             <td class="no-print" style="text-align: center;">
+                                {{-- Tombol Detail --}}
+                                <button type="button"
+                                        class="btn btn-primary btn-sm detail-btn"
+                                        style="margin-right:0.25rem"
+                                        data-nama="{{ e($row->nama) }}"
+                                        data-alamat="{{ e($row->alamat) }}"
+                                        data-tanggal="{{ $row->tanggal->format('d M Y') }}"
+                                        data-nomor-sk="{{ e($row->nomor_sk) }}"
+                                        data-submitted="{{ $row->pengajuan->created_at->format('d M Y H:i') }}"
+                                        data-approved="{{ $row->created_at->format('d M Y H:i') }}"
+                                        data-processor="{{ $row->processor->name ?? 'Admin' }}"
+                                        data-diff="{{ $row->created_at->diffInDays($row->pengajuan->created_at) }}">
+                                    🔍 Detail
+                                </button>
+                                </button>
                                 {{-- Tombol Edit --}}
                                 <button type="button"
                                         class="btn btn-warning btn-sm edit-btn"
@@ -88,7 +103,7 @@
                                         data-id="{{ $row->id }}"
                                         data-nama="{{ e($row->nama) }}"
                                         data-alamat="{{ e($row->alamat) }}"
-                                        data-tanggal="{{ $row->tanggal }}"
+                                        data-tanggal="{{ $row->tanggal->format('Y-m-d') }}"
                                         data-nomor-sk="{{ e($row->nomor_sk) }}">
                                     ✏️ Edit
                                 </button>
@@ -214,19 +229,46 @@
             document.body.style.overflow = '';
         }
 
+        function openDetailModal(btn) {
+            document.getElementById('det_nomor_sk').textContent = btn.dataset.nomorSk;
+            document.getElementById('det_nama').textContent     = btn.dataset.nama;
+            document.getElementById('det_alamat').textContent   = btn.dataset.alamat;
+            document.getElementById('det_submitted').textContent = btn.dataset.submitted;
+            document.getElementById('det_approved').textContent  = btn.dataset.approved;
+            document.getElementById('det_processor').textContent = btn.dataset.processor;
+            document.getElementById('detailModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // Attach click handlers to all edit buttons
         document.querySelectorAll('.edit-btn').forEach(function(btn) {
             btn.addEventListener('click', function() { openEditModal(this); });
+        });
+
+        // Attach click handlers to all detail buttons
+        document.querySelectorAll('.detail-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() { openDetailModal(this); });
         });
 
         // Close modal bila klik di luar area
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
         });
+        document.getElementById('detailModal').addEventListener('click', function(e) {
+            if (e.target === this) closeDetailModal();
+        });
 
         // Close modal dengan tombol Escape
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeEditModal();
+            if (e.key === 'Escape') {
+                closeEditModal();
+                closeDetailModal();
+            }
         });
     </script>
 </x-app-layout>
