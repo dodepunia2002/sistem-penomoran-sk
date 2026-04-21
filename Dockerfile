@@ -37,7 +37,6 @@ RUN apk add --no-cache \
     git \
     icu-dev \
     icu-libs \
-    mysql-client \
     linux-headers \
  && apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \

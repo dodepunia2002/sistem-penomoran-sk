@@ -11,15 +11,23 @@ if [ -z "${APP_KEY}" ] || [ "${APP_KEY}" = "base64:" ]; then
     php artisan key:generate --force
 fi
 
-# ── Wait for MySQL ────────────────────────────────────────────
+# ── Wait for MySQL with PHP (lebih reliable) ─────────────────
 echo "⏳ Menunggu MySQL siap..."
-max_retries=30
+max_retries=40
 count=0
-until mysql -h "${DB_HOST:-mysql}" \
-            -u "${DB_USERNAME:-sk_user}" \
-            -p"${DB_PASSWORD:-sk_password}" \
-            "${DB_DATABASE:-sistem_sk}" \
-            -e "SELECT 1" >/dev/null 2>&1; do
+until php -r "
+    try {
+        \$pdo = new PDO(
+            'mysql:host=${DB_HOST:-mysql};port=${DB_PORT:-3306};dbname=${DB_DATABASE:-sistem_sk}',
+            '${DB_USERNAME:-sk_user}',
+            '${DB_PASSWORD:-sk_password}',
+            [PDO::ATTR_TIMEOUT => 3, PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false]
+        );
+        echo 'ok';
+    } catch (Exception \$e) {
+        exit(1);
+    }
+" 2>/dev/null | grep -q "ok"; do
     count=$((count + 1))
     if [ $count -ge $max_retries ]; then
         echo "❌ MySQL tidak siap setelah ${max_retries} percobaan. Keluar."

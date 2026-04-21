@@ -1,44 +1,64 @@
+# ─────────────────────────────────────────────
+#  Sistem Penomoran SK — .gitignore
+# ─────────────────────────────────────────────
+
+# ── Node / Frontend ───────────────────────────
 /node_modules
 /public/build
 /public/hot
 /public/storage
-/storage/*.key
-/storage/pail
+
+# ── PHP / Composer ────────────────────────────
 /vendor
-.env
-.env.backup
-.env.production
-.env.local
-.env.testing
-
-# Docker specific
-!.env.docker
-!.env.example
-docker-compose.override.yml
-
-# PHP / Laravel
-.phpunit.result.cache
-.phpunit.cache
-.phpactor.json
 _ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+.phpactor.json
 Homestead.json
 Homestead.yaml
 
-# IDEs
+# ── Laravel ───────────────────────────────────
+/storage/*.key
+/storage/pail
+/bootstrap/cache/*.php
+
+# ── Environment files ─────────────────────────
+.env
+.env.backup
+.env.local
+.env.testing
+.env.production
+# Keep committed (templates):
+!.env.example
+!.env.docker
+
+# ── Docker ────────────────────────────────────
+docker-compose.override.yml
+
+# ── Database ──────────────────────────────────
+/database/*.sqlite
+/database/*.sqlite-journal
+
+# ── Testing ───────────────────────────────────
+.phpunit.result.cache
+.phpunit.cache
+
+# ── IDE / Editor ──────────────────────────────
 .idea
 .vscode
 .zed
 .nova
 .fleet
-*.log
+
+# ── OS ────────────────────────────────────────
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Database
-/database/*.sqlite
-/database/*.sqlite-journal
+# ── Logs ──────────────────────────────────────
+*.log
 
-# Compiled assets
-mix-manifest.json
-package-lock.json
+# ── Misc garbage ──────────────────────────────
+routes.json
 public/mix-manifest.json
+mix-manifest.json
